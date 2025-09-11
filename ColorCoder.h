@@ -1,19 +1,26 @@
-#ifndef COLORCODER_H
-#define COLORCODER_H
+#ifndef COLORCODER_HPP
+#define COLORCODER_HPP
 
-#define MAX_MAJOR_COLORS 5
-#define MAX_MINOR_COLORS 5
+#include <string>
+#include <vector>
 
-extern const char* MajorColorNames[MAX_MAJOR_COLORS];
-extern const char* MinorColorNames[MAX_MINOR_COLORS];
+namespace ColorCoder {
 
-typedef struct {
-    const char* majorColor;
-    const char* minorColor;
-} ColorPair;
+    constexpr int MAX_MAJOR_COLORS = 5;
+    constexpr int MAX_MINOR_COLORS = 5;
 
-ColorPair GetColorFromPairNumber(int pairNumber);
-int GetPairNumberFromColor(const char* major, const char* minor);
-void PrintReferenceManual();
+    extern const std::vector<std::string> MajorColorNames;
+    extern const std::vector<std::string> MinorColorNames;
+
+    struct ColorPair {
+        std::string majorColor;
+        std::string minorColor;
+    };
+
+    ColorPair getColorFromPairNumber(int pairNumber);
+    int getPairNumberFromColor(const std::string& major, const std::string& minor);
+    void printReferenceManual();
+
+}
 
 #endif
