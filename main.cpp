@@ -1,16 +1,22 @@
-#include <stdio.h>
-#include "colorcoder.h"
+#include "ColorCoder.hpp"
+#include <iostream>
 
 int main() {
-    // Test translations
-    ColorPair pair = GetColorFromPairNumber(23);
-    printf("Pair 23 is %s - %s\n", pair.majorColor, pair.minorColor);
+    using namespace ColorCoder;
 
-    int pairNum = GetPairNumberFromColor("Red", "Green");
-    printf("Red-Green is pair number %d\n", pairNum);
+    try {
+        ColorPair pair = getColorFromPairNumber(23);
+        std::cout << "Pair 23 is " << pair.majorColor << " - " << pair.minorColor << "\n";
 
-    // Print the reference manual
-    PrintReferenceManual();
+        int pairNum = getPairNumberFromColor("Red", "Green");
+        std::cout << "Red-Green is pair number " << pairNum << "\n";
+
+        // Print full reference manual
+        printReferenceManual();
+    }
+    catch(const std::exception& ex) {
+        std::cerr << "Error: " << ex.what() << "\n";
+    }
 
     return 0;
 }
