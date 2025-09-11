@@ -1,26 +1,40 @@
-#ifndef COLORCODER_HPP
-#define COLORCODER_HPP
-
-#include <string>
-#include <vector>
+#include "ColorCoder.hpp"
+#include <stdexcept>
 
 namespace ColorCoder {
 
-    constexpr int MAX_MAJOR_COLORS = 5;
-    constexpr int MAX_MINOR_COLORS = 5;
+    const std::vector<std::string> MajorColorNames = {"White", "Red", "Black", "Yellow", "Violet"};
+    const std::vector<std::string> MinorColorNames = {"Blue", "Orange", "Green", "Brown", "Slate"};
 
-    extern const std::vector<std::string> MajorColorNames;
-    extern const std::vector<std::string> MinorColorNames;
+    ColorPair getColorFromPairNumber(int pairNumber) {
+        if(pairNumber < 1 || pairNumber > MAX_MAJOR_COLORS * MAX_MINOR_COLORS) {
+            throw std::out_of_range("Invalid pair number");
+        }
+        int zeroBased = pairNumber - 1;
+        return {MajorColorNames[zeroBased / MAX_MINOR_COLORS],
+                MinorColorNames[zeroBased % MAX_MINOR_COLORS]};
+    }
 
-    struct ColorPair {
-        std::string majorColor;
-        std::string minorColor;
-    };
+    int getPairNumberFromColor(const std::string& major, const std::string& minor) {
+        int majorIndex = -1, minorIndex = -1;
 
-    ColorPair getColorFromPairNumber(int pairNumber);
-    int getPairNumberFromColor(const std::string& major, const std::string& minor);
-    void printReferenceManual();
+        for(int i = 0; i < MAX_MAJOR_COLORS; i++) {
+            if(MajorColorNames[i] == major) {
+                majorIndex = i;
+                break;
+            }
+        }
+        for(int j = 0; j < MAX_MINOR_COLORS; j++) {
+            if(MinorColorNames[j] == minor) {
+                minorIndex = j;
+                break;
+            }
+        }
+
+        if(majorIndex == -1 || minorIndex == -1) {
+            throw std::invalid_argument("Invalid color names");
+        }
+        return majorIndex * MAX_MINOR_COLORS + minorIndex + 1;
+    }
 
 }
-
-#endif
