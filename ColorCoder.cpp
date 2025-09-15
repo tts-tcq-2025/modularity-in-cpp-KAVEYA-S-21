@@ -1,4 +1,4 @@
-#include "ColorCoder.hpp"
+#include "ColorCoder.h"
 #include <stdexcept>
 
 namespace ColorCoder {
