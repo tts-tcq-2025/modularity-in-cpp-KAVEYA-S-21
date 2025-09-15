@@ -1,8 +1,8 @@
 #ifndef COLORCODER_H
 #define COLORCODER_H
 
-#include <string.h>
-#include <vector.h>
+#include <string>
+#include <vector>
 
 namespace ColorCoder {
 
