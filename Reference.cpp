@@ -1,22 +1,32 @@
-#include "ColorCoder.h"
-#include <iostream>
-#include <iomanip>
+#include "ColorUtils.h"
+#include <stdexcept>
 
-namespace ColorCoder {
+namespace TelCoColorCoder
+{
+    const char* MajorColorNames[] = {
+        "White", "Red", "Black", "Yellow", "Violet"
+    };
+    const int numberOfMajorColors = sizeof(MajorColorNames) / sizeof(MajorColorNames[0]);
 
-    void printReferenceManual() {
-        std::cout << "=== 25-Pair Color Code Reference Manual ===\n";
-        std::cout << "Pair No | Major Color | Minor Color\n";
-        std::cout << "------------------------------------\n";
+    const char* MinorColorNames[] = {
+        "Blue", "Orange", "Green", "Brown", "Slate"
+    };
+    const int numberOfMinorColors = sizeof(MinorColorNames) / sizeof(MinorColorNames[0]);
 
-        for(int pairNum = 1; pairNum <= MAX_MAJOR_COLORS * MAX_MINOR_COLORS; ++pairNum) {
-            ColorPair pair = getColorFromPairNumber(pairNum);
-            std::cout << std::setw(6) << pairNum
-                      << " | " << std::setw(11) << pair.majorColor
-                      << " | " << std::setw(11) << pair.minorColor
-                      << "\n";
+    ColorPair GetColorFromPairNumber(int pairNumber) {
+        if(pairNumber < 1 || pairNumber > numberOfMajorColors * numberOfMinorColors) {
+            throw std::out_of_range("Pair number out of valid range");
         }
+        int zeroBasedPairNumber = pairNumber - 1;
+        MajorColor majorColor = 
+            (MajorColor)(zeroBasedPairNumber / numberOfMinorColors);
+        MinorColor minorColor =
+            (MinorColor)(zeroBasedPairNumber % numberOfMinorColors);
+        return ColorPair(majorColor, minorColor);
+    }
+
+    int GetPairNumberFromColor(MajorColor major, MinorColor minor) {
+        return major * numberOfMinorColors + minor + 1;
     }
 
 }
-
