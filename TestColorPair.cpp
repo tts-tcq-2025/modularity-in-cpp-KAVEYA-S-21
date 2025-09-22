@@ -25,4 +25,4 @@ namespace TelCoColorCoder {
         TestColorPairFunction(23, MajorColor::VIOLET, MinorColor::GREEN);
     }
 
-} // namespace TelCoColorCoder
+} // namespace TelCoColorCoder 
