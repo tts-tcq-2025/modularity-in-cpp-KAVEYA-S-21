@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Colorcoder.h"
-#include "Reference.h"
+#include "ColorPair.h"
+#include "ColorUtils.h"
 #include "TestColorPair.h"
 
 namespace TelCoColorCoder {
