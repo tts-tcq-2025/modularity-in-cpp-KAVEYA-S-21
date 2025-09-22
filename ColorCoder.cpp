@@ -1,40 +1,24 @@
 #include "ColorCoder.h"
-#include <stdexcept>
+#include "Reference.h"
 
-namespace ColorCoder {
+namespace TelCoColorCoder
+{
 
-    const std::vector<std::string> MajorColorNames = {"White", "Red", "Black", "Yellow", "Violet"};
-    const std::vector<std::string> MinorColorNames = {"Blue", "Orange", "Green", "Brown", "Slate"};
+    ColorPair::ColorPair(MajorColor major, MinorColor minor)
+        : majorColor(major), minorColor(minor) {}
 
-    ColorPair getColorFromPairNumber(int pairNumber) {
-        if(pairNumber < 1 || pairNumber > MAX_MAJOR_COLORS * MAX_MINOR_COLORS) {
-            throw std::out_of_range("Invalid pair number");
-        }
-        int zeroBased = pairNumber - 1;
-        return {MajorColorNames[zeroBased / MAX_MINOR_COLORS],
-                MinorColorNames[zeroBased % MAX_MINOR_COLORS]};
+    MajorColor ColorPair::getMajor() {
+        return majorColor;
     }
 
-    int getPairNumberFromColor(const std::string& major, const std::string& minor) {
-        int majorIndex = -1, minorIndex = -1;
-
-        for(int i = 0; i < MAX_MAJOR_COLORS; i++) {
-            if(MajorColorNames[i] == major) {
-                majorIndex = i;
-                break;
-            }
-        }
-        for(int j = 0; j < MAX_MINOR_COLORS; j++) {
-            if(MinorColorNames[j] == minor) {
-                minorIndex = j;
-                break;
-            }
-        }
-
-        if(majorIndex == -1 || minorIndex == -1) {
-            throw std::invalid_argument("Invalid color names");
-        }
-        return majorIndex * MAX_MINOR_COLORS + minorIndex + 1;
+    MinorColor ColorPair::getMinor() {
+        return minorColor;
     }
 
+    std::string ColorPair::ToString() {
+        std::string colorPairStr = MajorColorNames[majorColor];
+        colorPairStr += " ";
+        colorPairStr += MinorColorNames[minorColor];
+        return colorPairStr;
+    }
 }
