@@ -1,5 +1,5 @@
-#include "ColorCoder.h"
-#include "Reference.h"
+#include "ColorPair.h"
+#include "ColorUtils.h"
 
 namespace TelCoColorCoder
 {
